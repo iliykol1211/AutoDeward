@@ -20,8 +20,7 @@ function SexAutoDeward.OnUpdate()
                     local npcs = NPCs.InRadius(Entity.GetAbsOrigin(myHero), rangetoward, Entity.GetTeamNum(myHero), Enum.TeamType.TEAM_BOTH)
                     if npcs then
                         for _,npc in pairs(npcs) do
-                            if npc and Entity.IsAlive(npc) and not Entity.IsDormant(npc) and not Entity.IsSameTeam(npc, myHero) then
-                                Console.Print(NPC.GetUnitName(npc))
+                            if npc and Entity.IsAlive(npc) and not Entity.IsDormant(npc) and not Entity.IsSameTeam(npc, myHero) and NPC.GetUnitName(npc) then
                                 if (NPC.GetUnitName(npc) == "npc_dota_sentry_wards" or NPC.GetUnitName(npc) == "npc_dota_observer_wards" ) then
                                     Ability.CastTarget(item, npc)
                                     trigertime = GameRules.GetGameTime() + 0.5
@@ -40,7 +39,7 @@ function SexAutoDeward.FindTree(item)
     local rangetotree = Ability.GetCastRange(item)
     local myHero = Heroes.GetLocal()
     for _,npc in pairs(NPCs.GetAll()) do
-        if npc and Entity.IsAlive(npc) and not Entity.IsSameTeam(npc, myHero) and NPC.IsEntityInRange(myHero, npc, rangetotree) then
+        if npc and Entity.IsAlive(npc) and not Entity.IsSameTeam(npc, myHero) and NPC.IsEntityInRange(myHero, npc, rangetotree) and NPC.GetUnitName(npc) then
             if NPC.GetUnitName(npc) == "npc_dota_treant_eyes" and NPC.IsEntityInRange(npc, myHero, rangetotree) then
                 local gettrees = Trees.InRadius(Entity.GetAbsOrigin(npc), 10, true)
                 for _,tree in pairs(gettrees) do
